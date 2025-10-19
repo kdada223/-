@@ -22,10 +22,19 @@ let item = createSlice({
         item.count++;
       }
     },
+    addItem(state, action) {
+      let existingItem = state.find((item) => item.id === action.payload.id);
+      if (existingItem) {
+        alert('이미 장바구니에 있는 상품입니다.');
+        return;
+      } else {
+        state.push(action.payload);
+      }
+    },
   },
 });
 
-export let { increaseCount } = item.actions;
+export let { increaseCount, addItem } = item.actions;
 
 export default configureStore({
   reducer: {

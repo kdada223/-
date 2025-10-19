@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
+import { addItem } from '../store.jsx';
+import { useDispatch } from 'react-redux';
 
 // import { Context1 } from '../App';
 //4. 그렇게 세팅해놓은걸 가져다 쓰려면 일단 import해야함
@@ -68,6 +70,7 @@ function DetailPage(props) {
     return x.id == id;
   });
 
+  let disPatch = useDispatch();
   // id가 없거나 findItem이 없을 때 기본값 설정
   if (!findItem) {
     findItem = props.shoes.find((x) => x.id === 0); // id가 0인 상품을 찾기
@@ -114,7 +117,16 @@ function DetailPage(props) {
           <h4 className="pt-5">{findItem.title}</h4>
           <p>{findItem.content}</p>
           <p>{findItem.price}</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              disPatch(
+                addItem({ id: findItem.id, name: findItem.title, count: 1 })
+              );
+            }}
+          >
+            주문하기
+          </button>
         </div>
       </div>
       <Nav variant="tabs" defaultActiveKey="link-0">
