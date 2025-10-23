@@ -11,109 +11,91 @@ export let Context1 = createContext();
 //Context API 사용 1번 createContext 이거 만들기 이게 뭐냐? state 보관함이다..
 
 function App() {
-  let [shoes, shoesState] = useState(data);
-  let [item] = useState([10, 11, 12]);
-  let navigate = useNavigate();
-  let [count, setCount] = useState(2);
-  let [isLoading, loadingState] = useState(false);
+	let [shoes, shoesState] = useState(data);
+	let [item] = useState([10, 11, 12]);
+	let navigate = useNavigate();
+	let [count, setCount] = useState(2);
+	let [isLoading, loadingState] = useState(false);
 
-  return (
-    <div className="App">
-      <Navbar bg="dark" data-bs-theme="dark" className="Nav-Main">
-        <Container className="Nav-Box">
-          <Navbar.Brand href="#home">Steam</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link
-              onClick={() => {
-                navigate('/');
-              }}
-            >
-              Home
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                navigate('/detail');
-              }}
-            >
-              Detail
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                navigate('/cart');
-              }}
-            >
-              Cart
-            </Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
+	return (
+		<div className='App'>
+			<Navbar bg='dark' data-bs-theme='dark' className='Nav-Main'>
+				<Container className='Nav-Box'>
+					<Navbar.Brand href='#home'>Steam</Navbar.Brand>
+					<Nav className='me-auto'>
+						<Nav.Link
+							onClick={() => {
+								navigate('/');
+							}}>
+							Home
+						</Nav.Link>
+						<Nav.Link
+							onClick={() => {
+								navigate('/detail');
+							}}>
+							Detail
+						</Nav.Link>
+						<Nav.Link
+							onClick={() => {
+								navigate('/cart');
+							}}>
+							Cart
+						</Nav.Link>
+					</Nav>
+				</Container>
+			</Navbar>
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <MainPage
-              shoes={shoes}
-              shoesState={shoesState}
-              count={count}
-              setCount={setCount}
-              isLoading={isLoading}
-              loadingState={loadingState}
-            ></MainPage>
-          }
-        />
+			<Routes>
+				<Route path='/' element={<MainPage shoes={shoes} shoesState={shoesState} count={count} setCount={setCount} isLoading={isLoading} loadingState={loadingState}></MainPage>} />
 
-        <Route
-          path="/detail"
-          element={
-            <Context1.Provider value={{ item }}>
-              <DetailPage shoes={shoes}></DetailPage>
-            </Context1.Provider>
-            //2.Context로 원하는 컴포넌트 감싸기
-            //3.value = {{state1, state2, state3...}} 밸류를 열어서 쓸 스테이트를 집어넣는다.
-            //이렇게 만든건 정한 컴포넌트의 자식요소들까지도 다 쓸 수 있삼
-          }
-        />
+				<Route
+					path='/detail'
+					element={
+						<Context1.Provider value={{ item }}>
+							<DetailPage shoes={shoes}></DetailPage>
+						</Context1.Provider>
+						//2.Context로 원하는 컴포넌트 감싸기
+						//3.value = {{state1, state2, state3...}} 밸류를 열어서 쓸 스테이트를 집어넣는다.
+						//이렇게 만든건 정한 컴포넌트의 자식요소들까지도 다 쓸 수 있삼
+					}
+				/>
 
-        <Route
-          path="/detail/:id"
-          element={<DetailPage shoes={shoes}></DetailPage>}
-        />
+				<Route path='/detail/:id' element={<DetailPage shoes={shoes}></DetailPage>} />
 
-        <Route path="/cart" element={<Cart></Cart>} />
+				<Route path='/cart' element={<Cart></Cart>} />
 
-        <Route path="/about" element={<About></About>}>
-          <Route path="member" element={<div>멤버임</div>} />
-          <Route path="location" element={<div>위치정보임</div>} />
-        </Route>
+				<Route path='/about' element={<About></About>}>
+					<Route path='member' element={<div>멤버임</div>} />
+					<Route path='location' element={<div>위치정보임</div>} />
+				</Route>
 
-        <Route path="/event" element={<Event></Event>}>
-          <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>} />
-          <Route path="two" element={<div>생일기념 쿠폰받기</div>} />
-        </Route>
+				<Route path='/event' element={<Event></Event>}>
+					<Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>} />
+					<Route path='two' element={<div>생일기념 쿠폰받기</div>} />
+				</Route>
 
-        <Route path="*" element={<div>없는페이지</div>} />
-      </Routes>
-    </div>
-  );
+				<Route path='*' element={<div>없는페이지</div>} />
+			</Routes>
+		</div>
+	);
 }
 
 function Event() {
-  return (
-    <div>
-      <h4>오늘의 이벤트</h4>
-      <Outlet></Outlet>
-    </div>
-  );
+	return (
+		<div>
+			<h4>오늘의 이벤트</h4>
+			<Outlet></Outlet>
+		</div>
+	);
 }
 
 function About() {
-  return (
-    <div>
-      <div>어바웃페이지임</div>
-      <Outlet></Outlet>
-    </div>
-  );
+	return (
+		<div>
+			<div>어바웃페이지임</div>
+			<Outlet></Outlet>
+		</div>
+	);
 }
 
 export default App;
