@@ -1,5 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 function MainPage(props) {
 	return (
@@ -53,9 +54,11 @@ function CellItem(props) {
 			{props.shoes.map((shoe, i) => {
 				return (
 					<Col md={4} key={shoe.id}>
-						<img src={`https://codingapple1.github.io/shop/shoes${i + 1}.jpg`} alt={`신발${i + 1}`} width={'80%'} />
-						<h4>{shoe.title}</h4>
-						<p>{shoe.price}</p>
+						<Link to={`/detail/${shoe.id}`} className='noBlue'>
+							<img src={`https://codingapple1.github.io/shop/shoes${shoe.id + 1}.jpg`} alt={`신발${i + 1}`} width={'80%'} />
+							<h4>{shoe.title}</h4>
+							<p>{shoe.price}</p>
+						</Link>
 					</Col>
 				);
 			})}

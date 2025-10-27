@@ -36,9 +36,14 @@ let item = createSlice({
 		},
 		reMoveItem(state, action) {
 			let id = action.payload;
-			let items = state.findIndex((item) => item.id === id);
+			let items = state.findIndex((item) => item.id === id); 
+			// 특정 아이템 즉 내가 뺴고 있는 아이템
 
 			if (items !== -1) {
+				//아 findIndex는 아이템을 찾지 못하면 -1을 반환하기에 -1이 아니면 이라는 뜻은 
+				//아이템을 찾았으면 그 아이템의 카운트를 빼라
+				//그런데 그 아이템의 카운트가 0보다 작거나 0이면
+				//제거를 하고 splice 즉 그 (그 아이템, 하나)를 제거해줘라 
 				state[items].count--;
 				if (state[items].count <= 0) {
 					alert('제거');

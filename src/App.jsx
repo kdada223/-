@@ -1,6 +1,6 @@
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import './App.css';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import data from './data.jsx';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import DetailPage from './routes/detail.jsx';
@@ -11,6 +11,23 @@ export let Context1 = createContext();
 //Context API 사용 1번 createContext 이거 만들기 이게 뭐냐? state 보관함이다..
 
 function App() {
+	// let obj = { name: 'kim' };
+	// localStorage.setItem('data', JSON.stringify(obj));
+	// //localstorage에 데이터를 저장할 때는 JSON 파일로 저장해야하는데 그거를 자동으로 바꿔주는 작업을 해주는 친구가
+	// //JSON.stringify() 이친구임 내가 obj자료형으로 저장해놓은 애를 저 괄호안에 집어넣으면 변경해줌
+	// let 꺼낸거 = localStorage.getItem('data');
+	// console.log(꺼낸거);
+	// //이 상태에서 그냥 꺼내면 JSON 형태로 변환했기에 문자열로 다 반환이 되는데 이거를 변환해서 꺼내면 됨 어떻게?
+	// console.log(JSON.parse(꺼낸거).name);
+	// //요롷게
+
+	useEffect(() => {
+		let localArr = localStorage.setItem('watched');
+		if (localArr === null) {
+			localStorage.setItem('watched', JSON.stringify([]));
+		}
+	}, []);
+
 	let [shoes, shoesState] = useState(data);
 	let [item] = useState([10, 11, 12]);
 	let navigate = useNavigate();
