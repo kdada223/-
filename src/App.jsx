@@ -22,11 +22,12 @@ function App() {
 	// //요롷게
 
 	useEffect(() => {
-		let localArr = localStorage.setItem('watched');
-		if (localArr === null) {
-			localStorage.setItem('watched', JSON.stringify([]));
-		}
+		let local = localStorage.getItem('watched');
+		local == null ? localStorage.setItem('watched', JSON.stringify([])) : '';
 	}, []);
+	// 누가 디테일 페이지 접속하면
+	// 그 페이지에 보이는 상품 ID값 가져와서
+	// localStorage에 watched 항목에 추가해줘
 
 	let [shoes, shoesState] = useState(data);
 	let [item] = useState([10, 11, 12]);

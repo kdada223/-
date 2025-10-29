@@ -18,6 +18,13 @@
 	background-image: url('./IMG/bg-1.png');
 	background-size: cover;
 	background-position: center;
+	display: flex;
+	justify-content: end;
+}
+.seeBox {
+	background-color: whitesmoke;
+	width: 20%;
+	height: 100%;
 }
 
 .App {

@@ -85,17 +85,18 @@ function DetailPage(props) {
 			fadeState('');
 		};
 	}, []);
+	useEffect(() => {
+		let originItem = localStorage.getItem('watched');
+		originItem = JSON.parse(originItem);
+		originItem.push(findItem.id);
+		originItem = new Set(originItem);
+		originItem = Array.from(originItem);
+		localStorage.setItem('watched', JSON.stringify(originItem));
+	}, []);
 
 	return (
 		<div className={`container start ${fade}`}>
 			{display == true ? <div className='alert alert-warning'>2초 이내 구매시 할인</div> : null}
-			<button
-				onClick={() => {
-					countState(count + 1);
-					console.log(count);
-				}}>
-				업데이트
-			</button>
 
 			<div className='row'>
 				<div className='col-md-6'>

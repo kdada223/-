@@ -1,11 +1,28 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function MainPage(props) {
+	let [watched, setWatched] = useState([]);
+
+	useEffect(() => {
+		let local = localStorage.getItem('watched');
+		if (local) {
+			setWatched(JSON.parse(local));
+		}
+	}, []);
 	return (
 		<div>
-			<div className='main-bg'></div>
+			<div className='main-bg'>
+				<div className='seeBox'>
+					최근 본 상품
+					{watched.map((id) => {
+						let product = props.shoes.find((shoe) => shoe.id === id);
+						return <div key={id}>{product ? product.title : `상품 ${id}`}</div>;
+					})}
+				</div>
+			</div>
 			<div>
 				<button
 					onClick={() => {
